@@ -25,5 +25,11 @@ public class HibernateSupport {
         return sessionFactory;
     }
 
+    public void close() {
+        if (sessionFactory != null) {
+            sessionFactory.close();
+            sessionFactory = null;
+        }
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.marchesani.clair.fridge;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.marchesani.clair.fridge.db.DBEntity;
 import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.annotations.Type;

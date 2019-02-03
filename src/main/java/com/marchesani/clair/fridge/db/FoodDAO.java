@@ -1,15 +1,10 @@
 package com.marchesani.clair.fridge.db;
 
-import com.google.common.collect.Lists;
 import com.marchesani.clair.fridge.Food;
-import com.marchesani.clair.fridge.FoodType;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,21 +26,9 @@ public class FoodDAO extends BaseDAO {
         return super.<Food>getTransactionally(crit::uniqueResult);
     }
 
-    public List<Food> getFoodsByName(String name) {
+    public List<Food> getFoodsByAttributes(FoodSearchParams searchCrit) {
         Criteria crit = getCriteriaForClass(Food.class, "food");
-        crit.add(Restrictions.eq("name", name));
-        return super.<List<Food>>getTransactionally(crit::list);
-    }
-
-    public List<Food> getFoodsByType(FoodType type) {
-        Criteria crit = getCriteriaForClass(Food.class, "food");
-        crit.add(Restrictions.eq("type", type));
-        return super.<List<Food>>getTransactionally(crit::list);
-    }
-
-    public List<Food> getFoodsByDateAdded(Date date) {
-        Criteria crit = getCriteriaForClass(Food.class, "food");
-        crit.add(Restrictions.eq("dateAdded", date));
+        crit.add(searchCrit.generateRestrictions());
         return super.<List<Food>>getTransactionally(crit::list);
     }
 

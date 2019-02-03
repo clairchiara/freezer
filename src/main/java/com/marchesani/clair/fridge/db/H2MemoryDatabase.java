@@ -13,36 +13,6 @@ public class H2MemoryDatabase {
     private static final String DB_USER = "clair";
     private static final String DB_PASSWORD = "password";
 
-    /**
-     * Creates a new H2 in memory database and runs initialisation queries if provided
-     * @param initialisationSql initialisation queries
-     * @throws ClassNotFoundException
-     * @throws SQLException
-     */
-    public H2MemoryDatabase(String... initialisationSql) throws ClassNotFoundException, SQLException {
-        Connection connection = getDBConnection();
-        if (initialisationSql != null) {
-            for (String sql : initialisationSql) {
-                initialiseDB(connection, sql);
-            }
-        }
-        connection.commit();
-        connection.close();
-    }
-
-    /**
-     * Runs an initialisation statement on the DB
-     * @param connection
-     * @param initialisationSql
-     * @throws SQLException
-     * @throws ClassNotFoundException
-     */
-    public static void initialiseDB(Connection connection, String initialisationSql) throws SQLException, ClassNotFoundException {
-        Statement initStatement = connection.createStatement();
-        initStatement.execute(initialisationSql);
-        initStatement.close();
-    }
-
     private static Connection getDBConnection() throws SQLException, ClassNotFoundException {
         Connection dbConnection = null;
         Class.forName(DB_DRIVER);

@@ -7,6 +7,7 @@ import com.marchesani.clair.fridge.Food;
 import com.marchesani.clair.fridge.FoodType;
 import org.assertj.core.api.JUnitSoftAssertions;
 import org.hibernate.SessionFactory;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,13 +22,21 @@ public class FoodDAOIT {
 
     private FoodDAO foodDAO;
 
-    private HibernateSupport hibernateSupport = new HibernateSupport();
+    private H2MemoryDatabase db;
+
+    private HibernateSupport hibernateSupport;
 
     @Before
     public void init() throws Exception {
-        H2MemoryDatabase db = new H2MemoryDatabase();
+        db = new H2MemoryDatabase();
+        hibernateSupport = new HibernateSupport();
         SessionFactory sessionFactory = hibernateSupport.getSessionFactory();
         foodDAO = new FoodDAO(sessionFactory);
+    }
+
+    @After
+    public void destroy() throws Exception {
+        if (hibernateSupport != null) hibernateSupport.close();
     }
 
     private List<Food> saveSomeFoods() {
@@ -53,7 +62,7 @@ public class FoodDAOIT {
         List<Food> foods = saveSomeFoods();
         foods.get(1).setAmount(5);
         foodDAO.saveOrUpdate(foods.get(1));
-        Food retrievedFood = foodDAO.getFoodsByName("Beef mince").get(0);
+        Food retrievedFood = foodDAO.getFoodsByAttributes(FoodSearchParams.withName("Beef mince")).get(0);
         assertThat(retrievedFood)
                 .extracting(Food::getName)
                 .as("The correct food should be returned")
@@ -62,7 +71,7 @@ public class FoodDAOIT {
                 .extracting(Food::getAmount)
                 .as("The amount should've been updated")
                 .isEqualTo(5);
-        retrievedFood = foodDAO.getFoodsByName("Apple").get(0);
+        retrievedFood = foodDAO.getFoodsByAttributes(FoodSearchParams.withName("Apple")).get(0);
         assertThat(retrievedFood)
                 .extracting(Food::getName)
                 .as("The correct food should be returned")
@@ -81,7 +90,7 @@ public class FoodDAOIT {
     @Test
     public void testRetrieveByType() throws Exception {
         List<Food> foods = saveSomeFoods();
-        List<Food> foodList = foodDAO.getFoodsByType(FoodType.FRESH);
+        List<Food> foodList = foodDAO.getFoodsByAttributes(FoodSearchParams.withType(FoodType.FRESH));
         assertThat(foodList)
                 .as("One fresh food should be returned")
                 .hasSize(1)
@@ -92,7 +101,7 @@ public class FoodDAOIT {
     @Test
     public void testRetrieveByDateAdded() throws Exception {
         List<Food> foods = saveSomeFoods();
-        List<Food> foodList = foodDAO.getFoodsByDateAdded(new Date());
+        List<Food> foodList = foodDAO.getFoodsByAttributes(FoodSearchParams.withDate(new Date()));
         assertThat(foodList)
                 .as("Both foods should be returned as they were both added today")
                 .containsOnly(foods.toArray(new Food[0]));
