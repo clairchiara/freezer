@@ -1,6 +1,6 @@
-package com.marchesani.clair.fridge.db;
+package com.marchesani.clair.freezer.db;
 
-import com.marchesani.clair.fridge.Food;
+import com.marchesani.clair.freezer.Food;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;

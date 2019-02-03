@@ -1,4 +1,4 @@
-package com.marchesani.clair.fridge.db;
+package com.marchesani.clair.freezer.db;
 
 public interface DBEntity {
 

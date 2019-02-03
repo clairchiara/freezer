@@ -1,4 +1,4 @@
-package com.marchesani.clair.fridge.db;
+package com.marchesani.clair.freezer.db;
 
 import static org.mockito.Mockito.*;
 
@@ -10,9 +10,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Answers;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.sql.Connection;

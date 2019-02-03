@@ -1,11 +1,10 @@
-package com.marchesani.clair.fridge.db;
+package com.marchesani.clair.freezer.db;
 
 import static org.assertj.core.api.Assertions.*;
 
 import com.google.common.collect.ImmutableList;
-import com.marchesani.clair.fridge.Food;
-import com.marchesani.clair.fridge.FoodType;
-import org.assertj.core.api.JUnitSoftAssertions;
+import com.marchesani.clair.freezer.Food;
+import com.marchesani.clair.freezer.FoodType;
 import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.Before;
@@ -13,7 +12,6 @@ import org.junit.Test;
 
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Integration test for {@link FoodDAO}
@@ -41,15 +39,15 @@ public class FoodDAOIT {
 
     private List<Food> saveSomeFoods() {
         Food apple = new Food();
-        apple.setName("Apple");
-        apple.setType(FoodType.FRESH);
+        apple.setName("Onion");
+        apple.setType(FoodType.VEGETABLES);
         apple.setAmount(5);
         apple.setDateAdded(new Date());
         foodDAO.saveOrUpdate(apple);
 
         Food beef = new Food();
         beef.setName("Beef mince");
-        beef.setType(FoodType.FROZEN);
+        beef.setType(FoodType.MEAT);
         beef.setAmount(1);
         beef.setDateAdded(new Date());
         foodDAO.saveOrUpdate(beef);
@@ -71,11 +69,11 @@ public class FoodDAOIT {
                 .extracting(Food::getAmount)
                 .as("The amount should've been updated")
                 .isEqualTo(5);
-        retrievedFood = foodDAO.getFoodsByAttributes(FoodSearchParams.withName("Apple")).get(0);
+        retrievedFood = foodDAO.getFoodsByAttributes(FoodSearchParams.withName("Onion")).get(0);
         assertThat(retrievedFood)
                 .extracting(Food::getName)
                 .as("The correct food should be returned")
-                .isEqualTo("Apple");
+                .isEqualTo("Onion");
     }
 
     @Test
@@ -90,11 +88,11 @@ public class FoodDAOIT {
     @Test
     public void testRetrieveByType() throws Exception {
         List<Food> foods = saveSomeFoods();
-        List<Food> foodList = foodDAO.getFoodsByAttributes(FoodSearchParams.withType(FoodType.FRESH));
+        List<Food> foodList = foodDAO.getFoodsByAttributes(FoodSearchParams.withType(FoodType.VEGETABLES));
         assertThat(foodList)
-                .as("One fresh food should be returned")
+                .as("One vegetable should be returned")
                 .hasSize(1)
-                .as("Fresh food should be the apple")
+                .as("Vegetable should be the onion")
                 .containsOnly(foods.get(0));
     }
 

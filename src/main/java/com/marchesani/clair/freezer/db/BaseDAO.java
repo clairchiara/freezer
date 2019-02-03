@@ -1,11 +1,10 @@
-package com.marchesani.clair.fridge.db;
+package com.marchesani.clair.freezer.db;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import java.sql.Connection;
 import java.util.function.Supplier;
 
 /**

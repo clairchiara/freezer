@@ -1,8 +1,8 @@
-package com.marchesani.clair.fridge.com.marchesani.clair.fridge.restlet;
+package com.marchesani.clair.freezer.com.marchesani.clair.freezer.restlet;
 
-import com.marchesani.clair.fridge.db.FoodDAO;
-import com.marchesani.clair.fridge.db.H2MemoryDatabase;
-import com.marchesani.clair.fridge.db.HibernateSupport;
+import com.marchesani.clair.freezer.db.FoodDAO;
+import com.marchesani.clair.freezer.db.H2MemoryDatabase;
+import com.marchesani.clair.freezer.db.HibernateSupport;
 import org.hibernate.SessionFactory;
 import org.restlet.*;
 import org.restlet.data.ChallengeScheme;

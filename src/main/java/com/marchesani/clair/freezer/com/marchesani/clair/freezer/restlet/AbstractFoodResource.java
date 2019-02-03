@@ -1,6 +1,6 @@
-package com.marchesani.clair.fridge.com.marchesani.clair.fridge.restlet;
+package com.marchesani.clair.freezer.com.marchesani.clair.freezer.restlet;
 
-import com.marchesani.clair.fridge.db.FoodDAO;
+import com.marchesani.clair.freezer.db.FoodDAO;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 

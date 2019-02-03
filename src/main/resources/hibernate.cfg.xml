@@ -12,6 +12,6 @@
         <property name="hibernate.connection.url">jdbc:h2:mem:test</property>
         <property name="hibernate.hbm2ddl.auto">create</property>
         <property name="hibernate.show_sql">false</property>
-        <mapping class="com.marchesani.clair.fridge.Food"></mapping>
+        <mapping class="com.marchesani.clair.freezer.Food"></mapping>
     </session-factory>
 </hibernate-configuration>

@@ -1,7 +1,6 @@
-package com.marchesani.clair.fridge.db;
+package com.marchesani.clair.freezer.db;
 
 import java.sql.*;
-import java.util.Arrays;
 
 /**
  * Class that creates an H2 in memory database upon initialisation

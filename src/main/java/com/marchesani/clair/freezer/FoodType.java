@@ -1,25 +1,21 @@
-package com.marchesani.clair.fridge;
+package com.marchesani.clair.freezer;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.io.IOException;
 
 /**
- * Enumerates various types of food that can be in the fridge
+ * Enumerates various types of food that can be in the freezer
  */
 public enum FoodType {
 
-    FRESH,
-    FROZEN,
-    MICROWAVABLE,
-    COOK_IN_OVEN;
+    MEAT,
+    FISH,
+    SPICES,
+    VEGETABLES;
 
     /**
      * Enables Restlet to serialise the enum values to {@link String}

@@ -1,7 +1,7 @@
-package com.marchesani.clair.fridge.db;
+package com.marchesani.clair.freezer.db;
 
-import com.marchesani.clair.fridge.Food;
-import com.marchesani.clair.fridge.FoodType;
+import com.marchesani.clair.freezer.Food;
+import com.marchesani.clair.freezer.FoodType;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;

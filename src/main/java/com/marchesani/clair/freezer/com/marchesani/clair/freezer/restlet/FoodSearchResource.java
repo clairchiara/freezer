@@ -1,8 +1,7 @@
-package com.marchesani.clair.fridge.com.marchesani.clair.fridge.restlet;
+package com.marchesani.clair.freezer.com.marchesani.clair.freezer.restlet;
 
-import com.marchesani.clair.fridge.Food;
-import com.marchesani.clair.fridge.db.FoodSearchParams;
-import org.restlet.representation.Representation;
+import com.marchesani.clair.freezer.Food;
+import com.marchesani.clair.freezer.db.FoodSearchParams;
 import org.restlet.resource.Get;
 
 import java.util.List;

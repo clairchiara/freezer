@@ -1,9 +1,8 @@
-package com.marchesani.clair.fridge;
+package com.marchesani.clair.freezer;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.marchesani.clair.fridge.db.DBEntity;
+import com.marchesani.clair.freezer.db.DBEntity;
 import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.annotations.Type;
 
@@ -13,7 +12,7 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
- * Represents a food in the fridge.
+ * Represents a food in the freezer.
  */
 @Entity
 @Table(name = "FOOD", uniqueConstraints = {@UniqueConstraint(columnNames = "ID")})
