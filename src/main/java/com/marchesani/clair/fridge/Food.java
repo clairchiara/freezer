@@ -1,24 +1,25 @@
 package com.marchesani.clair.fridge;
 
-import com.google.common.base.Objects;
-import org.apache.commons.lang3.ObjectUtils;
+import com.marchesani.clair.fridge.db.DBEntity;
+import org.apache.commons.lang3.time.DateUtils;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.security.SecureRandom;
 import java.util.Date;
-import java.util.Random;
+import java.util.Objects;
+import java.util.StringJoiner;
 
 /**
  * Represents a food in the fridge.
  */
 @Entity
 @Table(name = "FOOD", uniqueConstraints = {@UniqueConstraint(columnNames = "ID")})
-public  class Food {
+public  class Food implements DBEntity {
 
     private Long id;
     private String name;
     private FoodType type;
-    private Date dateAdded;
+    private Date dateAdded = new Date();
     private Integer amount;
 
     public Integer getAmount() {
@@ -47,7 +48,8 @@ public  class Food {
         this.name = name;
     }
 
-    public FoodType getType() {
+    @Enumerated(value = EnumType.STRING)
+    private FoodType getType() {
         return type;
     }
 
@@ -55,6 +57,7 @@ public  class Food {
         this.type = type;
     }
 
+    @Type(type = "date")
     public Date getDateAdded() {
         return dateAdded;
     }
@@ -62,4 +65,34 @@ public  class Food {
     public void setDateAdded(Date dateAdded) {
         this.dateAdded = dateAdded;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        if (o == this) return true;
+        if (!(o instanceof Food)) return false;
+        Food other = (Food) o;
+        return Objects.equals(id, other.id)
+                && Objects.equals(name, other.name)
+                && Objects.equals(type, other.type)
+                && DateUtils.isSameDay(dateAdded, other.dateAdded)
+                && Objects.equals(amount, other.amount);
+    }
+
+    @Override
+    public int hashCode() {
+        return com.google.common.base.Objects.hashCode(id, name, type, dateAdded, amount);
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner("|").setEmptyValue("null")
+                .add(Objects.toString(id))
+                .add(name)
+                .add(Objects.toString(name))
+                .add(Objects.toString(dateAdded))
+                .add(Objects.toString(amount))
+                .toString();
+    }
+
 }

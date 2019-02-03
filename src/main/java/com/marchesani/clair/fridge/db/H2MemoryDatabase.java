@@ -3,6 +3,9 @@ package com.marchesani.clair.fridge.db;
 import java.sql.*;
 import java.util.Arrays;
 
+/**
+ * Class that creates an H2 in memory database upon initialisation
+ */
 public class H2MemoryDatabase {
 
     private static final String DB_DRIVER = "org.h2.Driver";
@@ -10,6 +13,12 @@ public class H2MemoryDatabase {
     private static final String DB_USER = "clair";
     private static final String DB_PASSWORD = "password";
 
+    /**
+     * Creates a new H2 in memory database and runs initialisation queries if provided
+     * @param initialisationSql initialisation queries
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
     public H2MemoryDatabase(String... initialisationSql) throws ClassNotFoundException, SQLException {
         Connection connection = getDBConnection();
         if (initialisationSql != null) {
@@ -21,28 +30,13 @@ public class H2MemoryDatabase {
         connection.close();
     }
 
-    public static ResultSet query(String statement, Object... args) throws SQLException, ClassNotFoundException {
-        Connection connection = getDBConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(statement);
-        if (args != null) {
-            for (int i = 0; i < args.length; i++) {
-                preparedStatement.setObject(i+1, args[i]);
-            }
-        }
-        return preparedStatement.executeQuery();
-    }
-
-    public static int update(String statement, Object... args) throws SQLException, ClassNotFoundException {
-        Connection connection = getDBConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(statement);
-        if (args != null) {
-            for (int i = 0; i < args.length; i++) {
-                preparedStatement.setObject(i+1, args[i]);
-            }
-        }
-        return preparedStatement.executeUpdate();
-    }
-
+    /**
+     * Runs an initialisation statement on the DB
+     * @param connection
+     * @param initialisationSql
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static void initialiseDB(Connection connection, String initialisationSql) throws SQLException, ClassNotFoundException {
         Statement initStatement = connection.createStatement();
         initStatement.execute(initialisationSql);
@@ -51,10 +45,10 @@ public class H2MemoryDatabase {
 
     private static Connection getDBConnection() throws SQLException, ClassNotFoundException {
         Connection dbConnection = null;
-            Class.forName(DB_DRIVER);
-            dbConnection = DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASSWORD);
-            dbConnection.setAutoCommit(false);
-            return dbConnection;
+        Class.forName(DB_DRIVER);
+        dbConnection = DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASSWORD);
+        dbConnection.setAutoCommit(false);
+        return dbConnection;
     }
 
 
