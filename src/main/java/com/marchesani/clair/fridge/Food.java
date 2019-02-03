@@ -1,6 +1,8 @@
 package com.marchesani.clair.fridge;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.marchesani.clair.fridge.db.DBEntity;
 import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.annotations.Type;
@@ -19,6 +21,8 @@ public  class Food implements DBEntity {
 
     private Long id;
     private String name;
+    @JsonSerialize(using = FoodType.Serialiser.class)
+    @JsonDeserialize(using = FoodType.Deserialiser.class)
     private FoodType type;
     private Date dateAdded = new Date();
     private Integer amount;
@@ -90,7 +94,7 @@ public  class Food implements DBEntity {
         return new StringJoiner("|").setEmptyValue("null")
                 .add(Objects.toString(id))
                 .add(name)
-                .add(Objects.toString(name))
+                .add(Objects.toString(type))
                 .add(Objects.toString(dateAdded))
                 .add(Objects.toString(amount))
                 .toString();
