@@ -3,6 +3,7 @@ package com.marchesani.clair.fridge;
 import com.google.common.base.Objects;
 import org.apache.commons.lang3.ObjectUtils;
 
+import javax.persistence.*;
 import java.security.SecureRandom;
 import java.util.Date;
 import java.util.Random;
@@ -10,6 +11,8 @@ import java.util.Random;
 /**
  * Represents a food in the fridge.
  */
+@Entity
+@Table(name = "FOOD", uniqueConstraints = {@UniqueConstraint(columnNames = "ID")})
 public  class Food {
 
     private Long id;
@@ -26,6 +29,8 @@ public  class Food {
         this.amount = amount;
     }
 
+    @Id
+    @GeneratedValue
     public Long getId() {
         return id;
     }
